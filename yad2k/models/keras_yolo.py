@@ -328,22 +328,24 @@ def yolo_eval(yolo_outputs,
     """Evaluate YOLO model on given input batch and return filtered boxes."""
     box_xy, box_wh, box_confidence, box_class_probs = yolo_outputs
     boxes = yolo_boxes_to_corners(box_xy, box_wh)
-    boxes, scores, classes = yolo_filter_boxes(
-        boxes, box_confidence, box_class_probs, threshold=score_threshold)
-
-    # Scale boxes back to original image shape.
+    print("after yolo_boxes_to_corners {}".format(tf.shape(boxes)))
+    boxes, scores, classes = yolo_filter_boxes(boxes, box_confidence, box_class_probs, threshold=score_threshold)
+    print("after yolo_filter_boxes {}".format(tf.shape(boxes)))
+	# Scale boxes back to original image shape.
     height = image_shape[0]
     width = image_shape[1]
     image_dims = K.stack([height, width, height, width])
     image_dims = K.reshape(image_dims, [1, 4])
     boxes = boxes * image_dims
-
+    print("after image_dims {}".format(tf.shape(boxes)))
     # TODO: Something must be done about this ugly hack!
     max_boxes_tensor = K.variable(max_boxes, dtype='int32')
     K.get_session().run(tf.variables_initializer([max_boxes_tensor]))
     nms_index = tf.image.non_max_suppression(
         boxes, scores, max_boxes_tensor, iou_threshold=iou_threshold)
+    print("after non_max_suppression {}".format(tf.shape(nms_index)))
     boxes = K.gather(boxes, nms_index)
+    print("after gather {}".format(tf.shape(boxes)))
     scores = K.gather(scores, nms_index)
     classes = K.gather(classes, nms_index)
     return boxes, scores, classes

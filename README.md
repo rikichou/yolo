@@ -33,9 +33,8 @@
 
 特地拍摄了一段视频来演示人脸识别的效果（学习为主，请忽略本人长相）
 
-有梯子的朋友请点击：https://www.youtube.com/watch?v=ugltndM89G4
-
-没有梯子的朋友：优酷正在审核中。。。。。后续会加上链接
+优酷地址：http://v.youku.com/v_show/id_XMzYyMzA2NTI5Ng==.html?spm=a2hzp.8244740.0.0  
+YouTube地址：https://www.youtube.com/watch?v=ugltndM89G4
 
 如有疑问欢迎邮件沟通：
     
